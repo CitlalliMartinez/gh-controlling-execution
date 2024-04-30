@@ -25,7 +25,7 @@ jobs:
     steps:
       - name: Get code
         uses: actions/checkout@v3
-     - name: Cache dependencies
+      - name: Cache dependencies
         id: cache
         uses: actions/cache@v3
         with:
@@ -35,10 +35,10 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: npm ci
       - name: Test code
-        id: run-test
+        id: run-tests
         run: npm run test
       - name: Upload test report
-        if: failure() && steps.run-test.outcome == 'failure'
+        if: failure() && steps.run-tests.outcome == 'failure'
         uses: actions/upload-artifact@v3
         with:
           name: test-report
